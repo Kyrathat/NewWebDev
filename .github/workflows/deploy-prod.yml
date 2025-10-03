@@ -1,4 +1,3 @@
-
 name: Deploy to Production
 
 on:
@@ -7,7 +6,7 @@ on:
       - main
 
 env:
-  AZURE_WEBAPP_NAME: wp1-16531059-fa25  # Replace with your actual ID
+  AZURE_WEBAPP_NAME: wp1-16531059-fa25  # Your Azure App Service name
 
 jobs:
   build-and-deploy:
@@ -17,14 +16,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Log in to Azure
+        uses: azure/login@v1
         with:
-          python-version: '3.11'
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Upload to Azure Web App (ZIP Deploy)
+      - name: Deploy Docker image to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: .
+          images: ghcr.io/<your-github-username>/<your-image-name>:latest
