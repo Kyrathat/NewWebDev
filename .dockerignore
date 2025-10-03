@@ -1,0 +1,38 @@
+# Ignore build outputs
+bin/
+obj/
+out/
+
+# Ignore user-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Ignore IDE folders
+.vscode/
+.idea/
+
+# Ignore Git and version control
+.git/
+.gitignore
+.gitattributes
+
+# Ignore Docker-related files you don't need in the image
+.dockerignore
+docker-compose*
+Dockerfile*
+
+# Ignore temporary files and OS artifacts
+*.log
+*.tmp
+*.swp
+*~
+Thumbs.db
+Desktop.ini
+
+# Ignore node_modules if present (e.g., in full-stack apps)
+node_modules/
+
+# Ignore test projects (optional)
+**/*Tests/
