@@ -1,11 +1,10 @@
-
 name: Deploy Container to Slot
 
 on:
   workflow_dispatch:
 
 env:
-  APP_NAME: wp1-16531059-fa25SLOT        # Replace with your actual ID
+  APP_NAME: wp1-16531059-fa25   # Just the app name, no slot suffix
   SLOT_NAME: container-demo
   ACR_NAME: wp1fa25acr
 
@@ -41,4 +40,6 @@ jobs:
             --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
             --slot ${{ env.SLOT_NAME }} \
             --docker-custom-image-name ${{ env.ACR_NAME }}.azurecr.io/${{ env.APP_NAME }}:${{ github.sha }} \
-            --docker-registry-server-url https://${{ env.ACR_NAME }}.azurecr.io
+            --docker-registry-server-url https://${{ env.ACR_NAME }}.azurecr.io \
+            --docker-registry-server-user ${{ secrets.ACR_USERNAME }} \
+            --docker-registry-server-password ${{ secrets.ACR_PASSWORD }}
