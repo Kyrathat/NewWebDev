@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 env:
-  APP_NAME: wp1-16531059-fa25   # Just the app name, no slot suffix
+  APP_NAME: wp1-16531059-fa25
   SLOT_NAME: container-demo
   ACR_NAME: wp1fa25acr
 
@@ -32,6 +32,12 @@ jobs:
       - name: Push image to ACR
         run: |
           docker push ${{ env.ACR_NAME }}.azurecr.io/${{ env.APP_NAME }}:${{ github.sha }}
+
+      # Optional: Tag and push latest
+      - name: Tag and push latest
+        run: |
+          docker tag ${{ env.ACR_NAME }}.azurecr.io/${{ env.APP_NAME }}:${{ github.sha }} ${{ env.ACR_NAME }}.azurecr.io/${{ env.APP_NAME }}:latest
+          docker push ${{ env.ACR_NAME }}.azurecr.io/${{ env.APP_NAME }}:latest
 
       - name: Update slot to use new image
         run: |
